@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Add a New Service</h2>
+<form action="{{ url_for('add_service') }}" method="post" >
+    <label for="name">Service Name</label>
+    <input type="text" name="service_type" required>
+    <br>
+    <label for="base_price">Base Price</label>
+    <input type="number" name="service_price" step="0.01" required>
+    <br>
+    <label for="time_required">Time Required (in hours)</label>
+    <input type="number" name="service_duration" required>
+    <br>
+    <label for="description">Description</label>
+    <textarea name="service_description"></textarea>
+    <br>
+    <label for="experience_year">Experience Year</label>
+    <input type="number" name="experience_year" step="1" required>
+    <br>
+    <button type="submit">Add Service</button>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+    
+        h2 {
+            text-align: center;
+            color: #4ca3af;
+            margin-top: 20px;
+        }
+    
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+    
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 8px 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+    
+        textarea {
+            height: 80px;
+        }
+    
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color:  #4ca3af;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    
+</form>
+
+{% endblock %}
+

@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">User Profile</h1>
+    
+    <div class="row">
+        <!-- Personal Information -->
+        <div class="col-md-6">
+            <h4 class="profile-section-title">Personal Information</h4>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Username:</strong> {{ user.username }}</li>
+                <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
+                <li class="list-group-item"><strong>First Name:</strong> {{ user.fname }}</li>
+                <li class="list-group-item"><strong>Last Name:</strong> {{ user.lname }}</li>
+                <li class="list-group-item"><strong>Status:</strong> {% if user.approved %} Approved {% else %} Not Approved {% endif %}</li>
+                <li class="list-group-item"><strong>User ID:</strong> {{ user.id }}</li>
+            </ul>
+        </div>
+
+        <!-- Roles -->
+        <div class="col-md-6">
+            <h4 class="profile-section-title">Roles</h4>
+            <ul class="list-group">
+                {% for role in roles %}
+                    <li class="list-group-item"><strong>Role:</strong> {{ role }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Service Requests for Customers -->
+        {% if 'customer' in roles %}
+        <div class="col-md-6 mt-4">
+            <h4 class="profile-section-title">Your Service Requests</h4>
+            <ul class="list-group">
+                {% for request in user.service_requests %}
+                    <li class="list-group-item">
+                        <strong>Service:</strong> {{ request.service_type }} |
+                        <strong>Status:</strong>
+                        {% if request.date_of_accept %}
+                            {% if request.date_of_completion %}
+                                <span class="text-success">Completed</span>
+                            {% else %}
+                                <span class="text-warning">In Progress</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="text-muted">Not Accepted</span>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <!-- Rated Services for Customers -->
+        {% if 'customer' in roles %}
+        <div class="col-md-6 mt-4">
+            <h4 class="profile-section-title">Your Rated Services</h4>
+            <ul class="list-group">
+                {% for request in rated_services %}
+                    <li class="list-group-item">
+                        <strong>Service:</strong> {{ request.service_type }} |
+                        <strong>Rating:</strong> {{ request.service_professional.rating }} stars
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <!-- Service Professional Profile -->
+        {% if 'service_professional' in roles and service_professional %}
+        <div class="col-md-6 mt-4">
+            <h4 class="profile-section-title">Service Professional Profile</h4>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Service Type:</strong> {{ service_professional.service_type }}</li>
+                <li class="list-group-item"><strong>Service Price:</strong> ${{ service_professional.service_price }}</li>
+                <li class="list-group-item"><strong>Experience:</strong> {{ service_professional.experience_year }} years</li>
+                <li class="list-group-item"><strong>Rating:</strong> 
+                    {% if service_professional.rating %}
+                        {{ service_professional.rating }} stars
+                    {% else %}
+                        No rating yet
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+    /* Profile Section Titles */
+    .profile-section-title {
+        font-size: 1.5rem;
+        color: #333;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    /* List Styling for Profile Information */
+    .list-group-item {
+        font-size: 1rem;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background-color: #f9f9f9;
+    }
+
+    .list-group-item strong {
+        color: #333;
+    }
+
+    /* Add custom colors for service request statuses */
+    .text-muted {
+        color: #6c757d;
+    }
+
+    .text-success {
+        color: #28a745;
+    }
+
+    .text-warning {
+        color: #ffc107;
+    }
+
+    .text-danger {
+        color: #dc3545;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .col-md-6 {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+        }
+    }
+
+    /* Adjusting the margins for the title */
+    h1.text-center {
+        margin-bottom: 20px;
+    }
+</style>
+
+{% endblock %}

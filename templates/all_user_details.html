@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}All User Details{% endblock %}
+
+{% block content %}
+    <h1>All User Details</h1>
+    {% if users %}
+        <div class="row">
+            {% for user in users %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ user.username }}</h5>
+                            <p class="card-text">Email: {{ user.email }}</p>
+                            <p class="card-text">
+                                Role: 
+                                {% if user.roles %}
+                                    {{ user.roles[0].name }}
+                                {% else %}
+                                    admin
+                                {% endif %}
+                            </p>
+                            <p class="card-text">
+                                Approval Status: 
+                                {% if user.approved %}
+                                    Approved
+                                {% else %}
+                                    Pending
+                                {% endif %}
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                {% if user.roles and user.roles[0].name == 'service_professional' %}
+                                    <a href="{{ url_for('approve_service_professional', email=user.email) }}" class="btn btn-warning btn-sm">Approve</a>
+                                {% endif %}
+                                <a href="/admin/block/{{ user.email }}" class="btn btn-danger btn-sm">Block</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No users found.</p>
+    {% endif %}
+{% endblock %}

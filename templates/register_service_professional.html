@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block title %}Register as Service Professional{% endblock %}
+
+{% block content %}
+    <div class="container-fluid row justify-content-center mt-3">
+        <div class="col-6">
+            <h1 class="text-center">Register as Service Professional</h1>
+            <form action="{{ url_for('register_service_professional') }}" method="post" enctype="multipart/form-data">
+                <div class="form-group mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="fname" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="fname" name="fname" required>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="lname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lname" name="lname" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="cpassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="cpassword" name="cpassword" required>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email" required>
+                </div>
+                
+                <!-- Service Type -->
+                <div class="form-group mb-3">
+                    <label for="service_type" class="form-label">Service Type</label>
+                    <input type="text" class="form-control" id="service_type" name="service_type" placeholder="E.g., Plumber, Electrician" required>
+                </div>
+                
+                <!-- Service Duration -->
+                <div class="form-group mb-3">
+                    <label for="service_duration" class="form-label">Service Duration (in hours)</label>
+                    <input type="number" class="form-control" id="service_duration" name="service_duration" min="1" placeholder="E.g., 2" required>
+                </div>
+         
+                <!-- Experience Years -->
+                <div class="form-group mb-3">
+                    <label for="experience_year" class="form-label">Years of Experience</label>
+                    <input type="number" class="form-control" id="experience_year" name="experience_year" min="0" placeholder="E.g., 5" required>
+                </div>
+               
+                <!-- Service Price -->
+                <div class="form-group mb-3">
+                    <label for="service_price" class="form-label">Service Price (in Rupees)</label>
+                    <input type="number" class="form-control" id="service_price" name="service_price" step="100" placeholder="E.g., 500.00" required>
+                </div>
+                
+                <!-- Service Description -->
+                <div class="form-group mb-3">
+                    <label for="service_description" class="form-label">Service Description</label>
+                    <textarea class="form-control" id="service_description" name="service_description" rows="3" placeholder="Provide details about your service..." required></textarea>
+                </div>  
+                
+                <!-- Submit Button -->
+                <div class="form-group mb-3">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+                <div class="form-group mb-3">
+                    <span>Already have an account?</span> <a href="{{ url_for('login') }}">Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-top: 64px;
+            text-align: center;
+        }
+
+        /* Apply the same style to all input fields and textarea */
+        #service_type, 
+        #service_duration, 
+        #experience_year, 
+        #service_price, 
+        #service_description {
+            width: 440px;
+            height: 40px;
+            padding: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 15px; /* Add spacing between fields */
+        }
+
+        /* Adjust height for textarea */
+        #service_description {
+            height: auto;
+        }
+        #username, #email {
+        width: 440px;
+        height:40px; /* Set a specific width for the input fields */
+        padding: 10px;
+        border-radius: 5px;
+        box-sizing: border-box;
+        }
+    </style>
+{% endblock %}

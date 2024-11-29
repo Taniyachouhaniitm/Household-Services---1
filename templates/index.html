@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+    {% if session.get('username') %}
+        {% if 'admin' in session['role'] %}
+            {% include 'admin_dashboard.html' %}
+        {% elif 'ServiceProfessional' in session['role'] %}
+            {% include 'add_service.html' %}
+        {% else %}
+            <div class="container">
+                <h2>Welcome, {{ session['username'] }}!</h2>
+                <p>This is your home page.</p>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="container-fluid m-3">
+            <h1 class="text-center">Welcome to Household Service</h1>
+            
+        </div>
+        {% endif %}
+        
+        
+    {% endblock %}

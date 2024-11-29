@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Rate Service</h2>
+
+<!-- Displaying service details -->
+<div>
+    <h4>Service: {{ service_request.service_type }}</h4>
+    <p><strong>Service Description:</strong> {{ service_professional.service_description or 'No description available' }}</p>
+    <p><strong>Service Price:</strong> ${{ service_professional.service_price }}</p>
+</div>
+
+<!-- Check if the user has already rated -->
+{% if service_request.date_of_completion and service_professional.rating %}
+    <p class="text-info">You have already rated this service.</p>
+{% else %}
+    <!-- Rating Form -->
+    <form method="POST" action="{{ url_for('rate_service') }}">
+        <label for="rating">Rating (1-5):</label>
+        <input type="number" name="rating" id="rating" min="1" max="5" required>
+        <button type="submit">Submit</button>
+    </form>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="text-center">Admin Dashboard</h1>
+        
+        <h2 class="text-center mt-4">Services</h2>
+
+        <!-- Centered Button -->
+        <div class="button-container">
+            <a href="{{ url_for('add_service') }}" class="btn btn-primary btn-sm">Add Service</a>
+        </div>
+
+        <!-- Service Request Chart -->
+        <h2>User Data</h2>
+        <div class="chart-container">
+            <img src="data:image/png;base64,{{ user_img }}" alt="User Data Chart">
+        </div>
+
+        <h2>Service Request Data</h2>
+        <div class="chart-container">
+            <img src="data:image/png;base64,{{ request_img }}" alt="Service Request Data Chart">
+        </div>
+        </div>
+
+
+
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4ca3af;
+            margin: 20px 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+        }
+
+        /* Centering the button */
+        .button-container {
+            text-align: center; /* Centers content horizontally */
+            margin-top: 20px; /* Adds space above the button */
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4ca3af;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Button hover effect */
+        .btn:hover {
+            background-color: #4ca3af;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Chart Container Styling */
+        .col-md-12 {
+            max-width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+    </style>
+{% endblock %}

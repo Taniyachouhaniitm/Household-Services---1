@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Create New Service{% endblock %}
+
+{% block content %}
+<form href="{{ url_for('edit_service_request', request_id=service_request.id) }}">
+    <label for="date_of_accept">Date of Accept:</label>
+    <input type="date" id="date_of_accept" name="date_of_accept" value="{{ request.date_of_accept }}">
+
+    <label for="date_of_completion">Date of Completion:</label>
+    <input type="date" id="date_of_completion" name="date_of_completion" value="{{ request.date_of_completion }}">
+
+    <button type="submit">Update Request</button>
+</form>
+{%endblock%}

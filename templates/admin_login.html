@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+
+{%block title%}Login-Household Service{%endblock%}
+
+{% block content %}
+    <div class="container-fluid row justify-content-center mt-3">
+        <div class="col-6">
+            <h1 class="text-center">Admin Login</h1>
+            <form action={{ url_for('admin_login')}} method="post">
+                <div class="form-group mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <div class="form-group mb-3">
+                    <button type="submit" class="btn btn-primary">AdminLogin</button>
+                </div>  
+                
+        </div>
+    </div>
+
+    <style>
+        form{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+        }
+    
+        h1{
+            margin-top:64px;
+            text-align: center;
+        }
+    </style>
+    
+
+{%endblock%}

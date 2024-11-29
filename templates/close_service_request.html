@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Close Service Request{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1 class="mb-4">Close Service Request</h1>
+    
+    <form action="{{ url_for('close_service_request', request_id=service_request.id) }}" method="POST">
+      <div class="mb-3">
+        <label for="serviceType" class="form-label">Service Type</label>
+        <input type="text" class="form-control" id="serviceType" value="{{ service_request.service_type }}" readonly>
+      </div>
+      
+      <div class="mb-3">
+        <label for="completionDate" class="form-label">Completion Date</label>
+        <input type="date" class="form-control" id="completionDate" name="completion_date" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="remarks" class="form-label">Remarks</label>
+        <textarea class="form-control" id="remarks" name="remarks" rows="4" placeholder="Add any remarks about the service request..."></textarea>
+      </div>
+
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="confirmClose" name="confirm_close" required>
+        <label class="form-check-label" for="confirmClose">
+          I confirm that this service request is completed.
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-success">Close Request</button>
+      <a href="{{ url_for('view_service_requests') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+{% endblock %}

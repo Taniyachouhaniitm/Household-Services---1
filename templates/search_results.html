@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <h1 class="text-center">Search Professionals</h1>
+    
+    {% if query %}
+    <h3>Search Results for: "{{ query }}"</h3>
+    {% endif %}
+    
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Professional ID</th>
+                <th>Service Type</th>
+                <th>Base Price</th>
+                <th>Experience (Years)</th>
+                <th>Rating</th>
+                <th>Approved</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% if service_professionals %}
+                {% for professional in service_professionals %}
+                <tr>
+                    <td>{{ professional.id }}</td>
+                    <td>{{ professional.service_type }}</td>
+                    <td>${{ professional.service_price }}</td>
+                    <td>{{ professional.experience_year }}</td>
+                    <td>{{ professional.rating or "N/A" }}</td>
+                    
+                    <td>
+                        {% if current_user.roles == 'admin' %}
+                            <form action="{{ url_for('search_services') }}" method="POST" class="form-inline">
+                                <input type="text" name="query" class="form-control mb-2 mr-sm-2" placeholder="Search by service type">
+                                
+                                <select name="status" class="form-control mb-2 mr-sm-2">
+                                    <option value="">All</option>
+                                    <option value="approved">Unblocked</option>
+                                    <option value="blocked">Blocked</option>
+                                </select>
+                                
+                                <button type="submit" class="btn btn-primary mb-2">Search</button>
+                            </form>
+                        {% else %}
+                            <p class="text-danger">You are not authorized to search for professionals.</p>
+                        {% endif %}
+
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="8" class="text-center">No service professionals found matching your search criteria.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

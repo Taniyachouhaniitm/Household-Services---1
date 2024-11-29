@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>View Service Requests</h1>
+
+    {% if requests %}
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Service Type</th>
+                    <th>Date of Request</th>
+                    <th>Date of Accept</th>
+                    <th>Date of Completion</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in requests %}
+                    <tr>
+                        <td>{{ request.service_type }}</td>
+                        <td>{{ request.date_of_request }}</td>
+                        <td>{{ request.date_of_accept if request.date_of_accept else 'Null' }}</td>
+                        <td>{{ request.date_of_completion if request.date_of_completion else 'Null' }}</td>
+                        <td>
+                            {% if request.date_of_accept is none and request.date_of_completion is none %}
+                                <span class="text-danger">Not Accepted</span>
+                            {% elif request.date_of_accept %}
+                                <span class="text-warning">Accepted</span>
+                            {% elif request.date_of_completion %}
+                            <span class="text-success">Completed</span>
+                            {% else %}
+                                <span class="text-muted">Pending</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if request.status == "Not Accepted" %}
+                                <!-- If the request is declined -->
+                                <span class="text-muted">Not Completed</span>
+                            {% elif not request.date_of_accept %}
+                                <!-- If the request is neither accepted nor declined -->
+                                <form method="POST" action="{{ url_for('accept_service_request', id=request.id) }}">
+                                    <button type="submit" class="btn btn-primary">Accept</button>
+                                </form>
+                                <form method="POST" action="{{ url_for('decline_service_request', id=request.id) }}">
+                                    <button type="submit" class="btn btn-danger">Decline</button>
+                                </form>
+                            {% elif request.date_of_accept and not request.date_of_completion %}
+                                <!-- If the request is accepted but not completed -->
+                                <form method="POST" action="{{ url_for('complete_service_request', id=request.id) }}">
+                                    <button type="submit" class="btn btn-success">Mark as Completed</button>
+                                </form>
+                            {% else %}
+                                <!-- If the request is completed -->
+                                <span class="text-success">Completed</span>
+                            {% endif %}
+                        </td>
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No service requests available.</p>
+    {% endif %}
+
+
+
+        <style>
+            /* General Table Styling */
+            table {
+                width: 100%;
+                margin: 20px 0;
+                border-collapse: collapse;
+            }
+        
+            table th, table td {
+                padding: 10px;
+                text-align: center;
+                border: 1px solid #ddd;
+            }
+        
+            table th {
+                background-color: #f4f4f4;
+                font-weight: bold;
+            }
+        
+            table tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+        
+            table tr:hover {
+                background-color: #f1f1f1;
+            }
+        
+            /* Button Styling */
+            button {
+                padding: 6px 12px;
+                font-size: 14px;
+                cursor: pointer;
+                border: none;
+                border-radius: 4px;
+                transition: background-color 0.3s ease;
+            }
+        
+            button:hover {
+                opacity: 0.8;
+            }
+        
+            .btn-primary {
+                background-color: #007bff;
+                color: white;
+            }
+        
+            .btn-success {
+                background-color: #28a745;
+                color: white;
+            }
+        
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+        
+            .btn-success:hover {
+                background-color: #218838;
+            }
+        
+            /* Status Styling */
+            .text-success {
+                color: #28a745;
+            }
+        
+            .text-warning {
+                color: #ffc107;
+            }
+        
+            .text-muted {
+                color: #6c757d;
+            }
+        
+            /* Responsive Table */
+            @media screen and (max-width: 768px) {
+                table {
+                    font-size: 12px;
+                }
+        
+                table th, table td {
+                    padding: 8px;
+                }
+            }
+        </style>
+        
+
+{%endblock%}
+
+
