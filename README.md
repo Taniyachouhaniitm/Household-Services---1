@@ -1,0 +1,1 @@
+This is project about creating houshold service website. In this I create database and three roles Customer,Service Professional ,Admin.Admin have all powers to access data of customer and Service professional. 
