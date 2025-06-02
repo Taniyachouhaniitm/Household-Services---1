@@ -26,10 +26,10 @@ Manage users and services
 View reports and monitor platform activity
 
 🛠️ Tech Stack
-Layer	Technology
-Frontend	HTML, CSS, Bootstrap (or your choice)
-Backend	Python (Flask)
-Database	SQLite / MySQL / PostgreSQL
+Layer	Technology:- 
+Frontend - HTML, CSS, Bootstrap.
+Backend	Python - Flask.
+Database - SQLite / MySQL / PostgreSQL
 Tools	Jinja2 Templates, SQLAlchemy, etc.
 
 
